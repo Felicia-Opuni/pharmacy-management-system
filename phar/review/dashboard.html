@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">💊</div>
+    <div>
+      <div class="logo-text">PharmaCare</div>
+      <div class="logo-sub">Management System</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item active" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+    <div class="nav-section-label">Inventory</div>
+    <a class="nav-item" href="products.html"><span class="nav-icon">💊</span> Products</a>
+    <a class="nav-item" href="batches.html"><span class="nav-icon">📦</span> Batches</a>
+    <a class="nav-item" href="suppliers.html"><span class="nav-icon">🚚</span> Suppliers</a>
+    <div class="nav-section-label">Sales</div>
+    <a class="nav-item" href="sales.html"><span class="nav-icon">🛒</span> Sales</a>
+    <a class="nav-item" href="sale_return.html"><span class="nav-icon">↩️</span> Sale Returns</a>
+    <a class="nav-item" href="deliveries.html"><span class="nav-icon">🏍️</span> Deliveries</a>
+    <div class="nav-section-label">Customers</div>
+    <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span> Customers</a>
+    <a class="nav-item" href="health_records.html"><span class="nav-icon">🩺</span> Health Records</a>
+    <div class="nav-section-label">Orders</div>
+    <a class="nav-item" href="purchase_orders.html"><span class="nav-icon">📋</span> Purchase Orders</a>
+    <a class="nav-item" href="reorder_suggestions.html"><span class="nav-icon">🔔</span> Reorder Suggestions</a>
+    <div class="nav-section-label">Staff & Reports</div>
+    <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
+    <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">KM</div>
+      <div>
+        <!-- JS TASK: Populate from logged-in session -->
+        <div class="user-name">Kofi Mensah</div>
+        <div class="user-role">Pharmacist</div>
+      </div>
+    </div>
+  </div>
+</aside>
+<!-- ===== END SIDEBAR ===== -->
+
+<!-- ===== MAIN WRAPPER ===== -->
+<div class="main-wrapper">
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="page-title">
+      Dashboard <span>Overview</span>
+    </div>
+    <div class="header-actions">
+      <!-- JS TASK: Display today's real date dynamically -->
+      <div class="header-date">📅 Thursday, 21 May 2026</div>
+      <a href="login.html" class="btn btn-outline btn-sm">🚪 Logout</a>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="page-content">
+
+    <!-- ── Alert Banners ── -->
+    <!--
+      JS TASK: Fetch alerts from Flask:
+        GET /alerts/expiry     → show expiry alert if count > 0
+        GET /alerts/low-stock  → show low stock alert if count > 0
+      Hide banners if no alerts exist.
+    -->
+    <div class="alert alert-red" id="expiryBanner">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>3 batches expiring within 30 days.</strong>
+        Check the expiry report to take action.
+        <a href="reports.html" class="text-green" style="margin-left:6px;">View Expiry Report →</a>
+      </div>
+    </div>
+    <div class="alert alert-amber" id="lowStockBanner">
+      <span class="alert-icon">📉</span>
+      <div>
+        <strong>2 products are low in stock.</strong>
+        Reorder suggestions have been generated automatically.
+        <a href="reorder_suggestions.html" class="text-green" style="margin-left:6px;">View Suggestions →</a>
+      </div>
+    </div>
+
+    <!-- ── Stat Cards ── -->
+    <!--
+      JS TASK: Replace all dummy numbers below by fetching:
+        GET /reports/inventory       → TotalProducts, TotalStock
+        GET /reports/daily-sales     → TodaySales count + revenue
+        GET /customers               → Total customers count
+        GET /reorder/suggestions     → Pending suggestions count
+    -->
+    <div class="stat-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon green">💊</div>
+        <div>
+          <div class="stat-label">Total Products</div>
+          <div class="stat-value" id="statTotalProducts">24</div>
+          <div class="stat-sub">5 categories</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon blue">🛒</div>
+        <div>
+          <div class="stat-label">Today's Sales</div>
+          <div class="stat-value" id="statTodaySales">18</div>
+          <div class="stat-sub up">↑ GHS 427.50 revenue</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon amber">⚠️</div>
+        <div>
+          <div class="stat-label">Low Stock Items</div>
+          <div class="stat-value" id="statLowStock">2</div>
+          <div class="stat-sub down">Needs reorder</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon red">📅</div>
+        <div>
+          <div class="stat-label">Expiring Soon</div>
+          <div class="stat-value" id="statExpiring">3</div>
+          <div class="stat-sub down">Within 30 days</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon green">👥</div>
+        <div>
+          <div class="stat-label">Customers</div>
+          <div class="stat-value" id="statCustomers">61</div>
+          <div class="stat-sub">Registered</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orange">🔔</div>
+        <div>
+          <div class="stat-label">Pending Reorders</div>
+          <div class="stat-value" id="statPendingReorders">2</div>
+          <div class="stat-sub">Awaiting approval</div>
+        </div>
+      </div>
+
+    </div>
+    <!-- End Stat Cards -->
+
+    <!-- ── Bottom Grid: Recent Sales + Expiry Alerts ── -->
+    <div class="grid-2">
+
+      <!-- Recent Sales -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🛒 Today's Recent Sales</div>
+          <!--
+            JS TASK: "View All" button → navigate to sales.html
+                     with today's date pre-filtered
+          -->
+          <a href="sales.html" class="btn btn-outline btn-sm">View All</a>
+        </div>
+        <div class="table-wrapper">
+          <!--
+            JS TASK: Replace dummy rows by fetching:
+              GET /reports/daily-sales
+            Map each sale to a table row.
+          -->
+          <table>
+            <thead>
+              <tr>
+                <th>Sale ID</th>
+                <th>Product</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+            <tbody id="recentSalesTable">
+              <tr>
+                <td class="td-id">S018</td>
+                <td class="td-bold">Panadol</td>
+                <td class="td-muted">Walk-in</td>
+                <td>GHS 4.00</td>
+                <td><span class="badge badge-green">Cash</span></td>
+              </tr>
+              <tr>
+                <td class="td-id">S017</td>
+                <td class="td-bold">Amoxil</td>
+                <td class="td-muted">Ama Asante</td>
+                <td>GHS 16.50</td>
+                <td><span class="badge badge-blue">MobileMoney</span></td>
+              </tr>
+              <tr>
+                <td class="td-id">S016</td>
+                <td class="td-bold">Coartem</td>
+                <td class="td-muted">Kweku Boateng</td>
+                <td>GHS 24.00</td>
+                <td><span class="badge badge-green">Cash</span></td>
+              </tr>
+              <tr>
+                <td class="td-id">S015</td>
+                <td class="td-bold">Vitamin C</td>
+                <td class="td-muted">Walk-in</td>
+                <td>GHS 6.00</td>
+                <td><span class="badge badge-green">Cash</span></td>
+              </tr>
+              <tr>
+                <td class="td-id">S014</td>
+                <td class="td-bold">Diflucan</td>
+                <td class="td-muted">Abena Owusu</td>
+                <td>GHS 17.00</td>
+                <td><span class="badge badge-blue">MobileMoney</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Expiry Alerts -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">⚠️ Expiry Alerts (Next 90 Days)</div>
+          <a href="reports.html" class="btn btn-outline btn-sm">Full Report</a>
+        </div>
+        <div class="table-wrapper">
+          <!--
+            JS TASK: Replace dummy rows by fetching:
+              GET /alerts/expiry
+            Colour rows red if DaysUntilExpiry < 30, amber if < 90.
+          -->
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Batch</th>
+                <th>Expiry Date</th>
+                <th>Qty</th>
+                <th>Days Left</th>
+              </tr>
+            </thead>
+            <tbody id="expiryAlertsTable">
+              <tr>
+                <td class="td-bold">Amoxil</td>
+                <td class="td-id">BN-2024-A1</td>
+                <td>2026-06-01</td>
+                <td>20</td>
+                <td><span class="badge badge-red">11 days</span></td>
+              </tr>
+              <tr>
+                <td class="td-bold">Coartem</td>
+                <td class="td-id">BN-2024-C2</td>
+                <td>2026-06-18</td>
+                <td>12</td>
+                <td><span class="badge badge-amber">28 days</span></td>
+              </tr>
+              <tr>
+                <td class="td-bold">Diflucan</td>
+                <td class="td-id">BN-2024-D1</td>
+                <td>2026-07-10</td>
+                <td>8</td>
+                <td><span class="badge badge-amber">50 days</span></td>
+              </tr>
+              <tr>
+                <td class="td-bold">Panadol</td>
+                <td class="td-id">BN-2024-P3</td>
+                <td>2026-08-05</td>
+                <td>45</td>
+                <td><span class="badge badge-orange">76 days</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- End Bottom Grid -->
+
+    <!-- ── Stock Level Overview ── -->
+    <div class="card mt-3">
+      <div class="card-header">
+        <div class="card-title">📦 Stock Level Overview</div>
+        <a href="products.html" class="btn btn-outline btn-sm">Manage Products</a>
+      </div>
+      <div class="card-body">
+        <!--
+          JS TASK: Replace dummy items by fetching:
+            GET /reports/inventory
+          Calculate % as (TotalStock / (ReorderLevel * 3)) * 100
+          Cap at 100%. Colour bar: red if Out of Stock, amber if Low, green if OK.
+        -->
+
+        <!-- Product stock bars -->
+        <div style="margin-bottom:16px;">
+          <div class="flex-center" style="justify-content:space-between; margin-bottom:4px;">
+            <span class="fw-600" style="font-size:0.86rem;">Amoxil (Amoxicillin)</span>
+            <span class="td-muted">42 / 150 units</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill amber" style="width: 28%;"></div>
+          </div>
+          <div style="margin-top:4px; font-size:0.75rem; color: var(--warning);">⚠ Low Stock</div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div class="flex-center" style="justify-content:space-between; margin-bottom:4px;">
+            <span class="fw-600" style="font-size:0.86rem;">Panadol (Paracetamol)</span>
+            <span class="td-muted">185 / 300 units</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill green" style="width: 62%;"></div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div class="flex-center" style="justify-content:space-between; margin-bottom:4px;">
+            <span class="fw-600" style="font-size:0.86rem;">Coartem (Artemether)</span>
+            <span class="td-muted">0 / 90 units</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill red" style="width: 0%;"></div>
+          </div>
+          <div style="margin-top:4px; font-size:0.75rem; color: var(--danger);">✕ Out of Stock</div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div class="flex-center" style="justify-content:space-between; margin-bottom:4px;">
+            <span class="fw-600" style="font-size:0.86rem;">Vitamin C (Ascorbic Acid)</span>
+            <span class="td-muted">210 / 240 units</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill green" style="width: 88%;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex-center" style="justify-content:space-between; margin-bottom:4px;">
+            <span class="fw-600" style="font-size:0.86rem;">Diflucan (Fluconazole)</span>
+            <span class="td-muted">14 / 60 units</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill amber" style="width: 23%;"></div>
+          </div>
+          <div style="margin-top:4px; font-size:0.75rem; color: var(--warning);">⚠ Low Stock</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- End Page Content -->
+
+</div>
+<!-- ===== END MAIN WRAPPER ===== -->
+<script src="../js/utils.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/pages/dashboard.js"></script>
+</body>
+</body>
+</html>

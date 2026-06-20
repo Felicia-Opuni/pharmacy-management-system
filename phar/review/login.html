@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { margin: 0; }
+    .login-bg-text {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      margin-top: 18px;
+    }
+    .role-hint {
+      background: var(--primary-soft);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 18px;
+    }
+    .role-hint strong { color: var(--primary); }
+  </style>
+</head>
+<body>
+
+<!-- ========== LOGIN PAGE ========== -->
+<div class="login-page">
+
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="icon">💊</div>
+      <h1>PharmaCare System</h1>
+      <p>Integrated Pharmacy Management</p>
+    </div>
+
+    <form id="loginForm">
+
+      <div class="form-group">
+        <label class="form-label" for="staffEmail">Staff Email</label>
+        <input
+          class="form-control"
+          type="email"
+          id="staffEmail"
+          placeholder="e.g. kofi@pharmacy.gh"
+          value="kofi@pharmacy.gh"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input
+          class="form-control"
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          value="••••••••"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="role">Login As</label>
+        <select class="form-control" id="role">
+          <option value="">— Select your role —</option>
+          <option value="pharmacist" selected>Pharmacist</option>
+          <option value="cashier">Cashier</option>
+          <option value="medical_counter">Medical Counter Assistant</option>
+          <option value="rider">Rider</option>
+          <option value="ceo">CEO</option>
+        </select>
+      </div>
+
+      <!-- 
+        ╔══════════════════════════════════════════╗
+        ║  JS TASK: Handle login form submission   ║
+        ║  - Validate fields are not empty         ║
+        ║  - POST to Flask: POST /api/auth/login   ║
+        ║  - On success: redirect to dashboard.html║
+        ║    based on role returned from API       ║
+        ║  - On failure: show error message below  ║
+        ╚══════════════════════════════════════════╝
+      -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100 mt-2"
+        id="loginBtn"
+        
+      >
+        🔐 &nbsp;Login to System
+      </button>
+      <p id="loginError" style="display:none; color:var(--danger); font-size:0.82rem; margin-top:10px;"></p>
+    </form>
+
+    <div class="role-hint">
+      <strong>Demo hint:</strong> Use any email from the staff list.<br/>
+      Each role sees different pages after login.
+    </div>
+  </div>
+
+  <p class="login-bg-text">
+    PharmaCare &nbsp;|&nbsp; BSc IT Education Project &nbsp;|&nbsp; Felicia
+  </p>
+
+</div>
+<!-- ========== END LOGIN PAGE ========== -->
+<script src="../js/utils.js"></script>
+<script src="../js/auth.js"></script>
+</body>
+
+</html>

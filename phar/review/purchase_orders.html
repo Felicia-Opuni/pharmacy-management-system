@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purchase Orders — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">💊</div>
+    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+    <div class="nav-section-label">Inventory</div>
+    <a class="nav-item" href="products.html"><span class="nav-icon">💊</span> Products</a>
+    <a class="nav-item" href="batches.html"><span class="nav-icon">📦</span> Batches</a>
+    <a class="nav-item" href="suppliers.html"><span class="nav-icon">🚚</span> Suppliers</a>
+    <div class="nav-section-label">Sales</div>
+    <a class="nav-item" href="sales.html"><span class="nav-icon">🛒</span> Sales</a>
+    <a class="nav-item" href="sale_return.html"><span class="nav-icon">↩️</span> Sale Returns</a>
+    <a class="nav-item" href="deliveries.html"><span class="nav-icon">🏍️</span> Deliveries</a>
+    <div class="nav-section-label">Customers</div>
+    <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span> Customers</a>
+    <a class="nav-item" href="health_records.html"><span class="nav-icon">🩺</span> Health Records</a>
+    <div class="nav-section-label">Orders</div>
+    <a class="nav-item active" href="purchase_orders.html"><span class="nav-icon">📋</span> Purchase Orders</a>
+    <a class="nav-item" href="reorder_suggestions.html"><span class="nav-icon">🔔</span> Reorder Suggestions</a>
+    <div class="nav-section-label">Staff & Reports</div>
+    <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
+    <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">KM</div>
+      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
+    </div>
+  </div>
+</aside>
+<!-- ===== END SIDEBAR ===== -->
+
+<div class="main-wrapper">
+
+  <header class="top-header">
+    <div class="page-title">Purchase Orders <span>Orders from Suppliers</span></div>
+    <div class="header-actions">
+      <div class="header-date">📅 Thursday, 21 May 2026</div>
+      <!--
+        JS TASK: Open Add Purchase Order modal when clicked
+      -->
+      <button class="btn btn-primary"
+        onclick="document.getElementById('modalAddOrder').style.display='flex'">
+        ＋ New Purchase Order
+      </button>
+    </div>
+  </header>
+
+  <div class="page-content">
+
+    <!-- Status Summary Cards -->
+    <!--
+      JS TASK: Replace dummy numbers by fetching GET /purchase-orders
+               and counting orders per status.
+    -->
+    <div class="stat-grid" style="margin-bottom: 24px;">
+      <div class="stat-card">
+        <div class="stat-icon amber">📋</div>
+        <div>
+          <div class="stat-label">Pending</div>
+          <div class="stat-value">2</div>
+          <div class="stat-sub">Sent to supplier</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue">✅</div>
+        <div>
+          <div class="stat-label">Approved</div>
+          <div class="stat-value">1</div>
+          <div class="stat-sub">Supplier confirmed</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">📦</div>
+        <div>
+          <div class="stat-label">Delivered</div>
+          <div class="stat-value">8</div>
+          <div class="stat-sub">Stock received</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <!--
+          JS TASK: Filter table rows by Order ID or Supplier name
+        -->
+        <input type="text" placeholder="Search by order ID or supplier…" />
+      </div>
+      <!--
+        JS TASK: Filter table rows by OrderStatus
+      -->
+      <select class="form-control" style="width:auto;">
+        <option value="">All Statuses</option>
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Delivered</option>
+      </select>
+      <!--
+        JS TASK: Filter by supplier
+      -->
+      <select class="form-control" style="width:auto;">
+        <option value="">All Suppliers</option>
+        <option>MedSupply Ghana Ltd</option>
+        <option>PharmaDist Co.</option>
+        <option>HealthPlus Supplies</option>
+      </select>
+    </div>
+
+    <!-- Purchase Orders Table -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📋 All Purchase Orders</div>
+        <span class="text-muted">11 orders total</span>
+      </div>
+      <div class="table-wrapper">
+        <!--
+          JS TASK: Replace dummy rows by fetching: GET /purchase-orders
+          Bind "View Items" button → open View Items modal for that Order ID
+                                     Fetch: GET /purchase-orders/<id>/items
+          Bind "Update Status" button → open Update Status modal for that Order ID
+                                        PUT /purchase-orders/<id>  with new status
+          Bind "Delete" button → only shown if status is 'Pending'
+                                  DELETE /purchase-orders/<id>
+        -->
+        <table id="ordersTable">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Supplier</th>
+              <th>Ordered By</th>
+              <th>Order Date</th>
+              <th>Expected Delivery</th>
+              <th>Total Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-id">ORD001</td>
+              <td class="td-bold">MedSupply Ghana Ltd</td>
+              <td>Kofi Mensah</td>
+              <td>19 May 2026</td>
+              <td>25 May 2026</td>
+              <td>GHS 620.00</td>
+              <td><span class="badge badge-amber">Pending</span></td>
+              <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button class="btn btn-icon btn-sm" title="View Items"
+                  onclick="document.getElementById('modalViewItems').style.display='flex'">📦</button>
+                <button class="btn btn-primary btn-sm"
+                  onclick="document.getElementById('modalUpdateOrderStatus').style.display='flex'">
+                  🔄 Update
+                </button>
+                <button class="btn btn-icon btn-sm" title="Delete"
+                  onclick="alert('JS Task: Confirm then DELETE /purchase-orders/1')">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="td-id">ORD002</td>
+              <td class="td-bold">PharmaDist Co.</td>
+              <td>Abena Boateng</td>
+              <td>18 May 2026</td>
+              <td>23 May 2026</td>
+              <td>GHS 340.00</td>
+              <td><span class="badge badge-amber">Pending</span></td>
+              <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button class="btn btn-icon btn-sm" title="View Items"
+                  onclick="document.getElementById('modalViewItems').style.display='flex'">📦</button>
+                <button class="btn btn-primary btn-sm"
+                  onclick="document.getElementById('modalUpdateOrderStatus').style.display='flex'">
+                  🔄 Update
+                </button>
+                <button class="btn btn-icon btn-sm" title="Delete"
+                  onclick="alert('JS Task: Confirm then DELETE /purchase-orders/2')">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="td-id">ORD003</td>
+              <td class="td-bold">HealthPlus Supplies</td>
+              <td>Kofi Mensah</td>
+              <td>15 May 2026</td>
+              <td>20 May 2026</td>
+              <td>GHS 510.00</td>
+              <td><span class="badge badge-blue">Approved</span></td>
+              <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button class="btn btn-icon btn-sm" title="View Items"
+                  onclick="document.getElementById('modalViewItems').style.display='flex'">📦</button>
+                <button class="btn btn-primary btn-sm"
+                  onclick="document.getElementById('modalUpdateOrderStatus').style.display='flex'">
+                  🔄 Update
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="td-id">ORD004</td>
+              <td class="td-bold">MedSupply Ghana Ltd</td>
+              <td>Abena Boateng</td>
+              <td>05 May 2026</td>
+              <td>10 May 2026</td>
+              <td>GHS 890.00</td>
+              <td><span class="badge badge-green">Delivered</span></td>
+              <td style="display:flex; gap:6px;">
+                <button class="btn btn-icon btn-sm" title="View Items"
+                  onclick="document.getElementById('modalViewItems').style.display='flex'">📦</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="td-id">ORD005</td>
+              <td class="td-bold">PharmaDist Co.</td>
+              <td>Kofi Mensah</td>
+              <td>01 May 2026</td>
+              <td>07 May 2026</td>
+              <td>GHS 275.00</td>
+              <td><span class="badge badge-green">Delivered</span></td>
+              <td style="display:flex; gap:6px;">
+                <button class="btn btn-icon btn-sm" title="View Items"
+                  onclick="document.getElementById('modalViewItems').style.display='flex'">📦</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button class="page-btn disabled">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Page Content -->
+
+</div>
+
+<!-- ===== ADD PURCHASE ORDER MODAL ===== -->
+<!--
+  JS TASK:
+    1. Load suppliers dropdown: GET /suppliers
+    2. Load products dropdown per item row: GET /products
+    3. "Add Item" button appends a new product row
+    4. On Submit: POST /purchase-orders with:
+         { SupplierID, StaffID, OrderDate, ExpectedDeliveryDate, OrderStatus: 'Pending',
+           items: [{ ProductID, QuantityOrdered }] }
+    5. Backend calculates TotalOrderAmount and stores it.
+    6. On success: close modal, refresh table and summary cards.
+-->
+<div class="modal-overlay" id="modalAddOrder" style="display:none;">
+  <div class="modal" style="max-width: 640px;">
+    <div class="modal-header">
+      <div class="modal-title">📋 New Purchase Order</div>
+      <button class="modal-close"
+        onclick="document.getElementById('modalAddOrder').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Supplier *</label>
+          <select class="form-control">
+            <option value="">— Select Supplier —</option>
+            <option>SUP001 — MedSupply Ghana Ltd</option>
+            <option>SUP002 — PharmaDist Co.</option>
+            <option>SUP003 — HealthPlus Supplies</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Order Date *</label>
+          <input class="form-control" type="date" value="2026-05-21" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Expected Delivery Date</label>
+        <input class="form-control" type="date" />
+      </div>
+
+      <hr class="divider" />
+      <div class="fw-600" style="margin-bottom:10px; font-size:0.88rem;">Order Items</div>
+
+      <!-- Order Item Row (dummy) -->
+      <div style="background:var(--bg); border-radius:var(--radius-sm); padding:14px; margin-bottom:10px;">
+        <div class="form-row">
+          <div class="form-group mb-0">
+            <label class="form-label">Product *</label>
+            <select class="form-control">
+              <option>— Select product —</option>
+              <option>P001 — Amoxil (Amoxicillin)</option>
+              <option>P002 — Panadol (Paracetamol)</option>
+              <option>P003 — Coartem (Artemether)</option>
+              <option>P004 — Vitamin C (Ascorbic Acid)</option>
+              <option>P005 — Diflucan (Fluconazole)</option>
+            </select>
+          </div>
+          <div class="form-group mb-0">
+            <label class="form-label">Qty to Order *</label>
+            <input class="form-control" type="number" value="50" min="1" />
+          </div>
+        </div>
+        <div style="text-align:right; margin-top:10px;">
+          <button class="btn btn-danger btn-sm">✕ Remove</button>
+        </div>
+      </div>
+
+      <!--
+        JS TASK: "Add Item" button appends a new identical product row above
+      -->
+      <button class="btn btn-outline btn-sm"
+        onclick="alert('JS Task: Add another product item row')">
+        ＋ Add Another Product
+      </button>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline"
+        onclick="document.getElementById('modalAddOrder').style.display='none'">Cancel</button>
+      <button class="btn btn-primary"
+        onclick="alert('JS Task: POST purchase order to /purchase-orders')">
+        💾 Place Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== VIEW ORDER ITEMS MODAL ===== -->
+<!--
+  JS TASK: Populate this modal by fetching:
+    GET /purchase-orders/<id>/items
+  Map each item to a row in the table below.
+-->
+<div class="modal-overlay" id="modalViewItems" style="display:none;">
+  <div class="modal" style="max-width: 520px;">
+    <div class="modal-header">
+      <div class="modal-title">📦 Order Items — ORD001</div>
+      <button class="modal-close"
+        onclick="document.getElementById('modalViewItems').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0;">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Item #</th>
+              <th>Product</th>
+              <th>Brand</th>
+              <th>Qty Ordered</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-id">1</td>
+              <td class="td-bold">Amoxicillin</td>
+              <td>Amoxil</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td class="td-id">2</td>
+              <td class="td-bold">Artemether</td>
+              <td>Coartem</td>
+              <td>30</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline"
+        onclick="document.getElementById('modalViewItems').style.display='none'">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UPDATE ORDER STATUS MODAL ===== -->
+<!--
+  JS TASK:
+    Store the PurchaseOrderID of the row being updated.
+    On Submit: PUT /purchase-orders/<id>  with body { OrderStatus: "..." }
+    On success: close modal, refresh table and summary cards.
+-->
+<div class="modal-overlay" id="modalUpdateOrderStatus" style="display:none;">
+  <div class="modal" style="max-width: 420px;">
+    <div class="modal-header">
+      <div class="modal-title">🔄 Update Order Status</div>
+      <button class="modal-close"
+        onclick="document.getElementById('modalUpdateOrderStatus').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-blue" style="margin-bottom:16px;">
+        <span class="alert-icon">ℹ️</span>
+        <div>
+          Updating status for Order <strong>ORD001</strong> —
+          Supplier: <strong>MedSupply Ghana Ltd</strong>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">New Status *</label>
+        <select class="form-control" id="fieldOrderStatus">
+          <option value="">— Select —</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Delivered">Delivered</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline"
+        onclick="document.getElementById('modalUpdateOrderStatus').style.display='none'">Cancel</button>
+      <button class="btn btn-primary"
+        onclick="alert('JS Task: PUT /purchase-orders/<id> with new status')">
+        ✅ Update Status
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===== END MODALS ===== -->
+
+</body>
+</html>

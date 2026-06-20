@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suppliers — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">💊</div>
+    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+    <div class="nav-section-label">Inventory</div>
+    <a class="nav-item" href="products.html"><span class="nav-icon">💊</span> Products</a>
+    <a class="nav-item" href="batches.html"><span class="nav-icon">📦</span> Batches</a>
+    <a class="nav-item active" href="suppliers.html"><span class="nav-icon">🚚</span> Suppliers</a>
+    <div class="nav-section-label">Sales</div>
+    <a class="nav-item" href="sales.html"><span class="nav-icon">🛒</span> Sales</a>
+    <a class="nav-item" href="sale_return.html"><span class="nav-icon">↩️</span> Sale Returns</a>
+    <a class="nav-item" href="deliveries.html"><span class="nav-icon">🏍️</span> Deliveries</a>
+    <div class="nav-section-label">Customers</div>
+    <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span> Customers</a>
+    <a class="nav-item" href="health_records.html"><span class="nav-icon">🩺</span> Health Records</a>
+    <div class="nav-section-label">Orders</div>
+    <a class="nav-item" href="purchase_orders.html"><span class="nav-icon">📋</span> Purchase Orders</a>
+    <a class="nav-item" href="reorder_suggestions.html"><span class="nav-icon">🔔</span> Reorder Suggestions</a>
+    <div class="nav-section-label">Staff & Reports</div>
+    <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
+    <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">KM</div>
+      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
+    </div>
+  </div>
+</aside>
+<!-- ===== END SIDEBAR ===== -->
+
+<div class="main-wrapper">
+
+  <header class="top-header">
+    <div class="page-title">Suppliers <span>Supplier Directory</span></div>
+    <div class="header-actions">
+      <div class="header-date">📅 Thursday, 21 May 2026</div>
+      <!--
+        JS TASK: Open Add Supplier modal when clicked
+      -->
+      <button class="btn btn-primary"
+        onclick="openAddModal()">
+        ＋ Add Supplier
+      </button>
+    </div>
+  </header>
+
+  <div class="page-content">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <!--
+          JS TASK: On keyup, filter table rows by SupplierName, email, or address
+        -->
+        <input type="text" id="searchSuppliers" placeholder="Search by name, email or address…" onkeyup="filterSuppliers()"/>
+      </div>
+    </div>
+
+    <!-- Suppliers Table Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🚚 All Suppliers</div>
+        <!--
+          JS TASK: Update count dynamically after filtering
+        -->
+        <span class="text-muted" id="supplierCount">3 suppliers registered</span>
+      </div>
+      <div class="table-wrapper">
+        <!--
+          JS TASK: Replace dummy rows by fetching: GET /suppliers
+          Bind Edit button → open Edit Supplier modal pre-filled with that row's data
+          Bind Delete button → confirm dialog → DELETE /suppliers/<id>
+          Bind View Orders button → navigate to purchase_orders.html?supplier_id=X
+        -->
+        <table id="suppliersTable">
+          <thead>
+            <tr>
+              <th>Supplier ID</th>
+              <th>Supplier Name</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id = "suppliersTableBody">
+            <tr>
+              <td class="td-id">SUP001</td>
+              <td class="td-bold">MedSupply Ghana Ltd</td>
+              <td>0244000001</td>
+              <td class="td-muted">info@medsupply.gh</td>
+              <td>Accra, Ghana</td>
+              <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                <a href="purchase_orders.html" class="btn btn-icon btn-sm" title="View Orders">📋</a>
+                <button class="btn btn-icon btn-sm" title="Edit"
+                  onclick="alert('JS Task: Open Edit modal for SUP001')">✏️</button>
+                <button class="btn btn-icon btn-sm" title="Delete"
+                  onclick="alert('JS Task: Confirm then DELETE /suppliers/1')">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="td-id">SUP002</td>
+              <td class="td-bold">PharmaDist Co.</td>
+              <td>0244000002</td>
+              <td class="td-muted">sales@pharmadist.gh</td>
+              <td>Kumasi, Ghana</td>
+              <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                <a href="purchase_orders.html" class="btn btn-icon btn-sm" title="View Orders">📋</a>
+                <button class="btn btn-icon btn-sm" title="Edit"
+                  onclick="alert('JS Task: Open Edit modal for SUP002')">✏️</button>
+                <button class="btn btn-icon btn-sm" title="Delete"
+                  onclick="alert('JS Task: Confirm then DELETE /suppliers/2')">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="td-id">SUP003</td>
+              <td class="td-bold">HealthPlus Supplies</td>
+              <td>0244000003</td>
+              <td class="td-muted">info@healthplus.gh</td>
+              <td>Takoradi, Ghana</td>
+              <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                <a href="purchase_orders.html" class="btn btn-icon btn-sm" title="View Orders">📋</a>
+                <button class="btn btn-icon btn-sm" title="Edit"
+                  onclick="alert('JS Task: Open Edit modal for SUP003')">✏️</button>
+                <button class="btn btn-icon btn-sm" title="Delete"
+                  onclick="alert('JS Task: Confirm then DELETE /suppliers/3')">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- End Suppliers Table -->
+
+  </div>
+  <!-- End Page Content -->
+
+</div>
+
+<!-- ===== ADD / EDIT SUPPLIER MODAL ===== -->
+<!--
+  JS TASK:
+    - Add:  POST /suppliers  with form data as JSON
+    - Edit: PUT  /suppliers/<id> with form data as JSON
+    On success: close modal, refresh table.
+    On error: show error message inside modal.
+-->
+<div class="modal-overlay" id="modalSupplier" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalSupplierTitle">Add New Supplier</div>
+      <button class="modal-close"
+        onclick="document.getElementById('modalSupplier').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Supplier Name *</label>
+        <input class="form-control" type="text" id="fieldSupplierName"
+          placeholder="e.g. MedSupply Ghana Ltd" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input class="form-control" type="tel" id="fieldSupplierPhone"
+            placeholder="e.g. 0244000001" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input class="form-control" type="email" id="fieldSupplierEmail"
+            placeholder="e.g. info@supplier.gh" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address *</label>
+        <input class="form-control" type="text" id="fieldSupplierAddress"
+          placeholder="e.g. Accra, Ghana" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline"
+        onclick="document.getElementById('modalSupplier').style.display='none'">Cancel</button>
+      <button class="btn btn-primary" id="btnSaveSupplier"
+        onclick="saveSupplier()">
+        💾 Save Supplier
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===== END MODAL ===== -->
+<script src="../js/utils.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/pages/suppliers.js"></script>
+</body>
+</html>

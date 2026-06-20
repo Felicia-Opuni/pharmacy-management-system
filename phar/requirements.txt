@@ -1,0 +1,6 @@
+Flask
+mysql-connector-python
+
+
+there is manufacturing date 
+there is CustomerGender not gender

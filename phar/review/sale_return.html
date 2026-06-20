@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sale Returns — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">💊</div>
+    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+    <div class="nav-section-label">Inventory</div>
+    <a class="nav-item" href="products.html"><span class="nav-icon">💊</span> Products</a>
+    <a class="nav-item" href="batches.html"><span class="nav-icon">📦</span> Batches</a>
+    <a class="nav-item" href="suppliers.html"><span class="nav-icon">🚚</span> Suppliers</a>
+    <div class="nav-section-label">Sales</div>
+    <a class="nav-item" href="sales.html"><span class="nav-icon">🛒</span> Sales</a>
+    <a class="nav-item active" href="sale_return.html"><span class="nav-icon">↩️</span> Sale Returns</a>
+    <a class="nav-item" href="deliveries.html"><span class="nav-icon">🏍️</span> Deliveries</a>
+    <div class="nav-section-label">Customers</div>
+    <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span> Customers</a>
+    <a class="nav-item" href="health_records.html"><span class="nav-icon">🩺</span> Health Records</a>
+    <div class="nav-section-label">Orders</div>
+    <a class="nav-item" href="purchase_orders.html"><span class="nav-icon">📋</span> Purchase Orders</a>
+    <a class="nav-item" href="reorder_suggestions.html"><span class="nav-icon">🔔</span> Reorder Suggestions</a>
+    <div class="nav-section-label">Staff & Reports</div>
+    <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
+    <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">AO</div>
+      <div><div class="user-name">Ama Owusu</div><div class="user-role">Cashier</div></div>
+    </div>
+  </div>
+</aside>
+<!-- ===== END SIDEBAR ===== -->
+
+<div class="main-wrapper">
+
+  <header class="top-header">
+    <div class="page-title">Sale Returns <span>Customer Returns</span></div>
+    <div class="header-actions">
+      <div class="header-date">📅 Thursday, 21 May 2026</div>
+      <!--
+        JS TASK: Open Record Return modal when clicked
+      -->
+      <button class="btn btn-primary"
+        onclick="document.getElementById('modalReturn').style.display='flex'">
+        ↩️ Record Return
+      </button>
+    </div>
+  </header>
+
+  <div class="page-content">
+
+    <!-- Info banner -->
+    <div class="alert alert-blue">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        When a return is recorded, the system automatically
+        <strong>adds the quantity back to the batch</strong> and
+        <strong>recalculates the sale total</strong>. This is handled
+        by the database trigger <code>trg_AfterSaleReturn</code>.
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <!--
+          JS TASK: Filter table rows by Sale ID or product name
+        -->
+        <input type="text" placeholder="Search by sale ID or product…" />
+      </div>
+      <!--
+        JS TASK: Filter by return date
+      -->
+      <input type="date" class="form-control" style="width:auto;" value="2026-05-21" />
+    </div>
+
+    <!-- Returns Table -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">↩️ All Sale Returns</div>
+        <span class="text-muted">3 returns recorded</span>
+        <!--
+          JS TASK: Update count dynamically after fetching from API
+        -->
+      </div>
+      <div class="table-wrapper">
+        <!--
+          JS TASK: Replace dummy rows by fetching: GET /sale-returns
+          This page is read-only for viewing. Returns cannot be edited or deleted
+          once recorded, because the stock has already been updated by the trigger.
+        -->
+        <table id="returnsTable">
+          <thead>
+            <tr>
+              <th>Return ID</th>
+              <th>Sale ID</th>
+              <th>Product</th>
+              <th>Batch Number</th>
+              <th>Qty Returned</th>
+              <th>Return Date</th>
+              <th>Reason</th>
+              <th>Processed By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-id">RET001</td>
+              <td class="td-id">S010</td>
+              <td class="td-bold">Amoxil (Amoxicillin)</td>
+              <td class="td-id">BN-2024-A1</td>
+              <td>1</td>
+              <td>20 May 2026</td>
+              <td class="td-muted">Customer bought wrong dosage</td>
+              <td>Ama Owusu</td>
+            </tr>
+            <tr>
+              <td class="td-id">RET002</td>
+              <td class="td-id">S007</td>
+              <td class="td-bold">Panadol (Paracetamol)</td>
+              <td class="td-id">BN-2024-P2</td>
+              <td>2</td>
+              <td>18 May 2026</td>
+              <td class="td-muted">Packaging damaged on arrival</td>
+              <td>Kofi Mensah</td>
+            </tr>
+            <tr>
+              <td class="td-id">RET003</td>
+              <td class="td-id">S003</td>
+              <td class="td-bold">Vitamin C (Ascorbic Acid)</td>
+              <td class="td-id">BN-2024-V1</td>
+              <td>3</td>
+              <td>15 May 2026</td>
+              <td class="td-muted">Doctor changed prescription</td>
+              <td>Ama Owusu</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button class="page-btn disabled">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Page Content -->
+
+</div>
+
+<!-- ===== RECORD RETURN MODAL ===== -->
+<!--
+  JS TASK:
+    Step 1 — Staff enters a Sale ID.
+             Fetch that sale's items: GET /sales/<id>/items
+             Populate the "Item from Sale" dropdown with the products in that sale.
+
+    Step 2 — Staff selects the item and enters the quantity to return.
+             Validate: QuantityReturned cannot be more than QuantitySold in that sale item.
+
+    Step 3 — On Submit: POST /sale-returns with:
+               { SaleID, BatchID, StaffID, ReturnDate, QuantityReturned, Reason }
+
+    On success: close modal, refresh table.
+    The trigger handles stock update automatically — no extra API call needed.
+-->
+<div class="modal-overlay" id="modalReturn" style="display:none;">
+  <div class="modal" style="max-width: 540px;">
+    <div class="modal-header">
+      <div class="modal-title">↩️ Record Sale Return</div>
+      <button class="modal-close"
+        onclick="document.getElementById('modalReturn').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="alert alert-amber" style="margin-bottom:16px;">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          Once a return is saved it <strong>cannot be undone</strong>.
+          The batch stock will be updated automatically.
+        </div>
+      </div>
+
+      <!-- Step 1: Enter Sale ID -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Sale ID *</label>
+          <input class="form-control" type="text" id="fieldReturnSaleID"
+            placeholder="e.g. S018" />
+        </div>
+        <div class="form-group" style="display:flex; align-items:flex-end;">
+          <!--
+            JS TASK: On click, fetch GET /sales/<id>/items
+                     Populate the Item dropdown below with the products in that sale.
+                     Show an error if Sale ID not found.
+          -->
+          <button class="btn btn-outline w-100"
+            onclick="alert('JS Task: Fetch sale items for the entered Sale ID')">
+            🔍 Load Sale Items
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Select item and enter quantity -->
+      <div class="form-group">
+        <label class="form-label">Item to Return *</label>
+        <!--
+          JS TASK: Populate this dropdown after loading sale items above.
+                   Each option should show: ProductName × QuantitySold
+                   Store the BatchID as the value for each option.
+        -->
+        <select class="form-control" id="fieldReturnItem">
+          <option value="">— Load sale first —</option>
+          <!-- Example of what options will look like after loading: -->
+          <!-- <option value="1">Amoxil × 3 (Batch: BN-2024-A1)</option> -->
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Quantity to Return *</label>
+          <input class="form-control" type="number" id="fieldReturnQty"
+            placeholder="e.g. 1" min="1" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Return Date *</label>
+          <input class="form-control" type="date" value="2026-05-21" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Reason for Return</label>
+        <textarea class="form-control" id="fieldReturnReason" rows="2"
+          placeholder="e.g. Customer bought wrong dosage…"></textarea>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline"
+        onclick="document.getElementById('modalReturn').style.display='none'">Cancel</button>
+      <button class="btn btn-primary"
+        onclick="alert('JS Task: POST return data to /sale-returns')">
+        💾 Save Return
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===== END MODAL ===== -->
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batches — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="logo-icon">💊</div><div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+    <div class="nav-section-label">Inventory</div>
+    <a class="nav-item" href="products.html"><span class="nav-icon">💊</span> Products</a>
+    <a class="nav-item active" href="batches.html"><span class="nav-icon">📦</span> Batches</a>
+    <a class="nav-item" href="suppliers.html"><span class="nav-icon">🚚</span> Suppliers</a>
+    <div class="nav-section-label">Sales</div>
+    <a class="nav-item" href="sales.html"><span class="nav-icon">🛒</span> Sales</a>
+    <a class="nav-item" href="sale_return.html"><span class="nav-icon">↩️</span> Sale Returns</a>
+    <a class="nav-item" href="deliveries.html"><span class="nav-icon">🏍️</span> Deliveries</a>
+    <div class="nav-section-label">Customers</div>
+    <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span> Customers</a>
+    <a class="nav-item" href="health_records.html"><span class="nav-icon">🩺</span> Health Records</a>
+    <div class="nav-section-label">Orders</div>
+    <a class="nav-item" href="purchase_orders.html"><span class="nav-icon">📋</span> Purchase Orders</a>
+    <a class="nav-item" href="reorder_suggestions.html"><span class="nav-icon">🔔</span> Reorder Suggestions</a>
+    <div class="nav-section-label">Staff & Reports</div>
+    <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
+    <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
+  </nav>
+  <div class="sidebar-footer"><div class="user-info"><div class="user-avatar">KM</div><div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div></div></div>
+</aside>
+<div class="main-wrapper">
+  <header class="top-header">
+    <div class="page-title">Batches <span>Stock Batches</span></div>
+    <div class="header-actions">
+      <div class="header-date">📅 Thursday, 21 May 2026</div>
+      <!--
+        JS TASK: Open Add Batch modal.
+                 A batch is linked to a Purchase (PurchaseID) and a Product (ProductID).
+                 POST /batches with: { ProductID, PurchaseID, BatchNumber, ExpiryDate, CostPrice, QuantityReceived }
+                 QuantityRemaining starts equal to QuantityReceived.
+      -->
+      <button class="btn btn-primary"
+        onclick="document.getElementById('modalBatch').style.display='flex'">
+        ＋ Add Batch
+      </button>
+    </div>
+  </header>
+  <div class="page-content">
+    <div class="toolbar">
+      <div class="search-box"><span class="search-icon">🔍</span>
+        <!-- JS TASK: Filter by BatchNumber or ProductName -->
+        <input type="text" placeholder="Search by batch number or product…" />
+      </div>
+      <!-- JS TASK: Filter by expiry status (expired / expiring soon / ok) -->
+      <select class="form-control" style="width:auto;">
+        <option value="">All Expiry Status</option>
+        <option>Expiring within 30 days</option>
+        <option>Expiring within 90 days</option>
+        <option>OK</option>
+        <option>Already Expired</option>
+      </select>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📦 All Batches</div>
+      </div>
+      <div class="table-wrapper">
+        <!--
+          JS TASK: Populate from GET /batches
+          Color ExpiryDate red if already expired, amber if within 90 days.
+        -->
+        <table>
+          <thead>
+            <tr>
+              <th>Batch ID</th><th>Product</th><th>Purchase ID</th>
+              <th>Batch Number</th><th>Expiry Date</th>
+              <th>Cost Price</th><th>Qty Received</th><th>Qty Remaining</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-id">B001</td><td class="td-bold">Amoxil</td>
+              <td class="td-id">PUR001</td><td class="td-id">BN-2024-A1</td>
+              <td><span class="text-red fw-600">2026-06-01</span></td>
+              <td>GHS 3.20</td><td>100</td><td>20</td>
+              <td><button class="btn btn-icon btn-sm" onclick="alert('JS Task: Edit batch B001')">✏️</button></td>
+            </tr>
+            <tr>
+              <td class="td-id">B002</td><td class="td-bold">Panadol</td>
+              <td class="td-id">PUR001</td><td class="td-id">BN-2024-P2</td>
+              <td>2026-12-10</td>
+              <td>GHS 0.80</td><td>300</td><td>185</td>
+              <td><button class="btn btn-icon btn-sm" onclick="alert('JS Task: Edit batch B002')">✏️</button></td>
+            </tr>
+            <tr>
+              <td class="td-id">B003</td><td class="td-bold">Coartem</td>
+              <td class="td-id">PUR002</td><td class="td-id">BN-2024-C2</td>
+              <td><span class="text-amber fw-600">2026-06-18</span></td>
+              <td>GHS 7.50</td><td>50</td><td>0</td>
+              <td><button class="btn btn-icon btn-sm" onclick="alert('JS Task: Edit batch B003')">✏️</button></td>
+            </tr>
+            <tr>
+              <td class="td-id">B004</td><td class="td-bold">Vitamin C</td>
+              <td class="td-id">PUR002</td><td class="td-id">BN-2024-V1</td>
+              <td>2027-03-20</td>
+              <td>GHS 1.50</td><td>300</td><td>210</td>
+              <td><button class="btn btn-icon btn-sm" onclick="alert('JS Task: Edit batch B004')">✏️</button></td>
+            </tr>
+            <tr>
+              <td class="td-id">B005</td><td class="td-bold">Diflucan</td>
+              <td class="td-id">PUR003</td><td class="td-id">BN-2024-D1</td>
+              <td><span class="text-amber fw-600">2026-07-10</span></td>
+              <td>GHS 5.00</td><td>40</td><td>14</td>
+              <td><button class="btn btn-icon btn-sm" onclick="alert('JS Task: Edit batch B005')">✏️</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button class="page-btn disabled">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD BATCH MODAL -->
+<!--
+  JS TASK: On submit POST /batches.
+           Auto-set QuantityRemaining = QuantityReceived on the backend.
+-->
+<div class="modal-overlay" id="modalBatch" style="display:none;">
+  <div class="modal" style="max-width:540px;">
+    <div class="modal-header">
+      <div class="modal-title">📦 Add New Batch</div>
+      <button class="modal-close" onclick="document.getElementById('modalBatch').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Product *</label>
+          <select class="form-control">
+            <option>— Select product —</option>
+            <option>Amoxil (Amoxicillin)</option>
+            <option>Panadol (Paracetamol)</option>
+            <option>Coartem (Artemether)</option>
+            <option>Vitamin C (Ascorbic Acid)</option>
+            <option>Diflucan (Fluconazole)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Linked Purchase ID *</label>
+          <!-- JS TASK: Load from GET /purchases and populate this dropdown -->
+          <select class="form-control">
+            <option>— Select purchase —</option>
+            <option>PUR001 — MedSupply (2026-05-01)</option>
+            <option>PUR002 — PharmaDist (2026-04-15)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Batch Number *</label>
+          <input class="form-control" type="text" placeholder="e.g. BN-2026-A3" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Expiry Date *</label>
+          <input class="form-control" type="date" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Cost Price (GHS) *</label>
+          <input class="form-control" type="number" placeholder="0.00" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quantity Received *</label>
+          <input class="form-control" type="number" placeholder="e.g. 100" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="document.getElementById('modalBatch').style.display='none'">Cancel</button>
+      <button class="btn btn-primary" onclick="alert('JS Task: POST batch to /batches')">💾 Save Batch</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

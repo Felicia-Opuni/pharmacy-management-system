@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customers — PharmaCare System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">💊</div>
+    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+    <div class="nav-section-label">Inventory</div>
+    <a class="nav-item" href="products.html"><span class="nav-icon">💊</span> Products</a>
+    <a class="nav-item" href="batches.html"><span class="nav-icon">📦</span> Batches</a>
+    <a class="nav-item" href="suppliers.html"><span class="nav-icon">🚚</span> Suppliers</a>
+    <div class="nav-section-label">Sales</div>
+    <a class="nav-item" href="sales.html"><span class="nav-icon">🛒</span> Sales</a>
+    <a class="nav-item" href="sale_return.html"><span class="nav-icon">↩️</span> Sale Returns</a>
+    <a class="nav-item" href="deliveries.html"><span class="nav-icon">🏍️</span> Deliveries</a>
+    <div class="nav-section-label">Customers</div>
+    <a class="nav-item active" href="customers.html"><span class="nav-icon">👥</span> Customers</a>
+    <a class="nav-item" href="health_records.html"><span class="nav-icon">🩺</span> Health Records</a>
+    <div class="nav-section-label">Orders</div>
+    <a class="nav-item" href="purchase_orders.html"><span class="nav-icon">📋</span> Purchase Orders</a>
+    <a class="nav-item" href="reorder_suggestions.html"><span class="nav-icon">🔔</span> Reorder Suggestions</a>
+    <div class="nav-section-label">Staff & Reports</div>
+    <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
+    <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">KM</div>
+      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
+    </div>
+  </div>
+</aside>
+<!-- ===== END SIDEBAR ===== -->
+
+<div class="main-wrapper">
+
+  <header class="top-header">
+    <div class="page-title">Customers <span>Registered Profiles</span></div>
+    <div class="header-actions">
+      <div class="header-date">📅 Thursday, 21 May 2026</div>
+      <!--
+        JS TASK: Open Add Customer modal when clicked
+      -->
+      <button class="btn btn-primary"
+        onclick="openAddModal()">
+        ＋ Register Customer
+      </button>
+    </div>
+  </header>
+
+  <div class="page-content">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <!--
+          JS TASK: Filter by CustomerFName, CustomerSName, or CustomerPhoneNumber
+        -->
+        <input type="text" id="searchCustomers" placeholder="Search by name or phone number…" onkeyup="filterCustomers()"/>
+      </div>
+      <!--
+        JS TASK: Filter by Gender
+      -->
+      <select class="form-control" style="width:auto;" id="filterGender" onchange="filterCustomers()">
+        <option value="">All Genders</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+      <!--
+        JS TASK: Filter by HealthStatus
+      -->
+      <select class="form-control" style="width:auto;" id="filterHealthStatus" onchange="filterCustomers()">
+        <option value="">All Health Status</option>
+        <option>Healthy</option>
+        <option>Diabetic</option>
+        <option>Hypertensive</option>
+        <option>Pregnant</option>
+        <option>Asthmatic</option>
+      </select>
+    </div>
+
+    <!-- Customers Table -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">👥 All Customers</div>
+        <span class="text-muted" id="customerCount">61 customers registered</span>
+      </div>
+      <div class="table-wrapper">
+        <!--
+          JS TASK: Replace dummy rows by fetching: GET /customers
+          Bind "View Health Records" button → navigate to health_records.html?customer_id=X
+          Bind "Edit" button → open Edit Customer modal with pre-filled data
+        -->
+        <table>
+          <thead>
+            <tr>
+              <th>Customer ID</th>
+              <th>Full Name</th>
+              <th>Gender</th>
+              <th>Date of Birth</th>
+              <th>Phone</th>
+              <th>Health Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id = "customersTableBody">
+           
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="customersPagination">
+        <button class="page-btn disabled">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ADD CUSTOMER MODAL ===== -->
+<!--
+  JS TASK:
+    On Submit: POST /customers with form data
+    On success: close modal, refresh table.
+-->
+<div class="modal-overlay" id="modalAddCustomer" style="display:none;">
+  <div class="modal" style="max-width:580px;">
+    <div class="modal-header">
+      <div class="modal-title" id="modalCustomerTitle">👥 Register New Customer</div>
+      <button class="modal-close" onclick="document.getElementById('modalAddCustomer').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name *</label>
+          <input class="form-control" type="text" placeholder="e.g. Ama" id="fieldCustomerFName" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Surname *</label>
+          <input class="form-control" type="text" placeholder="e.g. Asante" id="fieldCustomerSName" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Gender *</label>
+          <select class="form-control" id="fieldCustomerGender">
+            <option value="">— Select —</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date of Birth *</label>
+          <input class="form-control" type="date" id="fieldDateOfBirth"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input class="form-control" type="tel" placeholder="e.g. 0244501001" id="fieldCustomerPhoneNumber" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email (Optional)</label>
+          <input class="form-control" type="email" placeholder="e.g. ama@email.com" id="fieldCustomerEmail" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address *</label>
+        <input class="form-control" type="text" placeholder="e.g. Accra, Ghana" id="fieldCustomerAddress"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Health Status *</label>
+        <select class="form-control" id="fieldCustomerHealthStatus">
+          <option value="">— Select —</option>
+          <option>Healthy</option>
+          <option>Diabetic</option>
+          <option>Hypertensive</option>
+          <option>Pregnant</option>
+          <option>Asthmatic</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline"
+        onclick="document.getElementById('modalAddCustomer').style.display='none'">Cancel</button>
+      <button class="btn btn-primary"
+        onclick="saveCustomer()" id="btnSaveCustomer">
+        💾 Register Customer
+      </button>
+    </div>
+  </div>
+</div>
+<script src="../js/utils.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/pages/customers.js"></script>
+</body>
+</html>
