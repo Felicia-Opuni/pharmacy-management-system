@@ -36,7 +36,7 @@ Includes: Views, Triggers, Stored Procedures, and an Event Scheduler.
 | Phase                | Status         |
 |----------------------|----------------|
 | Database (MySQL)     | ✅ Complete    |
-| Backend (Flask API)  | ⏳ In Progress |
+| Backend (Flask API)  | ✅ Complete    |
 | Frontend             | ⏳ Coming Soon |
 
 ## 👩‍💻 About
