@@ -7,13 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- ===== SIDEBAR ===== -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-icon">💊</div>
-    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
-  </div>
+  <div class="sidebar-logo"><div class="logo-icon">💊</div><div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div></div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
     <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
@@ -35,79 +30,29 @@
     <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
     <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
   </nav>
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar">KM</div>
-      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
-    </div>
-  </div>
+  <div class="sidebar-footer"><div class="user-info"><div class="user-avatar">KM</div><div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div></div></div>
 </aside>
-<!-- ===== END SIDEBAR ===== -->
 
 <div class="main-wrapper">
-
   <header class="top-header">
     <div class="page-title">Sales <span>Transaction Records</span></div>
     <div class="header-actions">
-      <div class="header-date">📅 Thursday, 21 May 2026</div>
-      <!--
-        JS TASK: Open New Sale modal when clicked
-      -->
-      <button class="btn btn-primary" id="btnNewSale"
-        onclick="alert('JS Task: Open New Sale modal.')">
-        ＋ New Sale
-      </button>
+      <button class="btn btn-primary" id="btnNewSale">＋ New Sale</button>
     </div>
   </header>
 
   <div class="page-content">
-
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <!--
-          JS TASK: Filter sales table by Customer name, Staff name, or SaleID
-        -->
-        <input type="text" placeholder="Search by customer or sale ID…" />
-      </div>
-      <!--
-        JS TASK: Filter table by date (send ?date= param to GET /sales)
-      -->
-      <input type="date" class="form-control" style="width:auto;" value="2026-05-21" />
-      <select class="form-control" style="width:auto;">
-        <option value="">All Payment Methods</option>
-        <option>Cash</option>
-        <option>MobileMoney</option>
-      </select>
-    </div>
-
-    <!-- Sales Table -->
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">🛒 Sales Records</div>
-        <span class="text-muted">Today: 18 transactions · GHS 427.50</span>
-        <!--
-          JS TASK: Sum today's TotalAmount from loaded sales data
-        -->
-      </div>
+      <div class="card-header"><div class="card-title">🛒 Sales Records</div></div>
       <div class="table-wrapper">
-        <!--
-          JS TASK: Replace dummy rows by fetching:  GET /sales
-          Bind "View Receipt" button → open receipt modal for that SaleID
-            by fetching: GET /sales/receipt/<id>
-        -->
         <table>
           <thead>
             <tr>
               <th>Sale ID</th>
               <th>Date</th>
               <th>Customer</th>
-              <th>Staff</th>
-              <th>Products</th>
               <th>Total Amount</th>
               <th>Payment</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -115,216 +60,12 @@
               <td class="td-id">S018</td>
               <td>21 May 2026</td>
               <td class="td-muted">Walk-in</td>
-              <td>Ama Owusu</td>
-              <td>Panadol × 2</td>
               <td class="td-bold">GHS 4.00</td>
               <td><span class="badge badge-green">Cash</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View Receipt"
-                  onclick="document.getElementById('modalReceipt').style.display='flex'">🧾</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">S017</td>
-              <td>21 May 2026</td>
-              <td class="td-muted">Ama Asante</td>
-              <td>Kofi Mensah</td>
-              <td>Amoxil × 3</td>
-              <td class="td-bold">GHS 16.50</td>
-              <td><span class="badge badge-blue">MobileMoney</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View Receipt"
-                  onclick="document.getElementById('modalReceipt').style.display='flex'">🧾</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">S016</td>
-              <td>21 May 2026</td>
-              <td class="td-muted">Kweku Boateng</td>
-              <td>Ama Owusu</td>
-              <td>Coartem × 2</td>
-              <td class="td-bold">GHS 24.00</td>
-              <td><span class="badge badge-green">Cash</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View Receipt"
-                  onclick="document.getElementById('modalReceipt').style.display='flex'">🧾</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">S015</td>
-              <td>21 May 2026</td>
-              <td class="td-muted">Walk-in</td>
-              <td>Ama Owusu</td>
-              <td>Vitamin C × 2</td>
-              <td class="td-bold">GHS 6.00</td>
-              <td><span class="badge badge-green">Cash</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View Receipt"
-                  onclick="document.getElementById('modalReceipt').style.display='flex'">🧾</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">S014</td>
-              <td>20 May 2026</td>
-              <td class="td-muted">Abena Owusu</td>
-              <td>Kofi Mensah</td>
-              <td>Diflucan × 2</td>
-              <td class="td-bold">GHS 17.00</td>
-              <td><span class="badge badge-blue">MobileMoney</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View Receipt"
-                  onclick="document.getElementById('modalReceipt').style.display='flex'">🧾</button>
-              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="pagination">
-        <button class="page-btn disabled">‹</button>
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">›</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===== NEW SALE MODAL ===== -->
-<!--
-  JS TASK:
-    1. Load product list into the product dropdown (GET /products)
-    2. When a product is selected, auto-load its batches (GET /batches?product_id=X)
-       and auto-fill UnitPrice from SellingPrice
-    3. "Add Item" button appends a new row to the items list
-    4. Calculate and show subtotal per row and running TotalAmount
-    5. Customer field: optional — allow typing to search customers (GET /customers?search=X)
-    6. On Submit: POST /sales with:
-         { CustomerID, StaffID, SaleDate, PaymentMethod, items:[{BatchID, QuantitySold, UnitPrice}] }
-    7. On success: show receipt modal, refresh sales table
--->
-<div class="modal-overlay" id="modalNewSale" style="display:none;">
-  <div class="modal" style="max-width:680px;">
-    <div class="modal-header">
-      <div class="modal-title">🛒 New Sale</div>
-      <button class="modal-close" onclick="document.getElementById('modalNewSale').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Customer (Optional)</label>
-          <input class="form-control" type="text" placeholder="Search customer name or leave blank…" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Payment Method *</label>
-          <select class="form-control">
-            <option>Cash</option>
-            <option>MobileMoney</option>
-          </select>
-        </div>
-      </div>
-
-      <hr class="divider" />
-      <div class="fw-600" style="margin-bottom:10px; font-size:0.88rem;">Sale Items</div>
-
-      <!-- Sale Item Row (dummy) -->
-      <div style="background:var(--bg); border-radius:var(--radius-sm); padding:14px; margin-bottom:10px;">
-        <div class="form-row-3">
-          <div class="form-group mb-0">
-            <label class="form-label">Product *</label>
-            <select class="form-control">
-              <option>— Select product —</option>
-              <option>Panadol (Paracetamol)</option>
-              <option>Amoxil (Amoxicillin)</option>
-              <option>Coartem (Artemether)</option>
-              <option>Vitamin C (Ascorbic Acid)</option>
-              <option>Diflucan (Fluconazole)</option>
-            </select>
-          </div>
-          <div class="form-group mb-0">
-            <label class="form-label">Batch *</label>
-            <select class="form-control">
-              <option>— Select batch —</option>
-              <option>BN-2024-P2 (Exp: Aug 2026)</option>
-            </select>
-          </div>
-          <div class="form-group mb-0">
-            <label class="form-label">Qty *</label>
-            <input class="form-control" type="number" value="1" min="1" />
-          </div>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-top:10px; align-items:center;">
-          <span class="text-muted">Unit Price: <strong class="text-green">GHS 2.00</strong></span>
-          <span class="text-muted">Subtotal: <strong class="text-green">GHS 2.00</strong></span>
-          <button class="btn btn-danger btn-sm">✕ Remove</button>
-        </div>
-      </div>
-
-      <button class="btn btn-outline btn-sm"
-        onclick="alert('JS Task: Add another item row to this form')">
-        ＋ Add Another Item
-      </button>
-
-      <hr class="divider" />
-      <div style="text-align:right; font-size:1rem; font-weight:700; color:var(--primary);">
-        Total Amount: <span id="saleTotal">GHS 2.00</span>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalNewSale').style.display='none'">Cancel</button>
-      <button class="btn btn-primary"
-        onclick="alert('JS Task: POST sale to /sales API')">
-        ✅ Complete Sale
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== RECEIPT MODAL ===== -->
-<!--
-  JS TASK: Populate all dummy values below from the API response
-    GET /sales/receipt/<id>
-  Add a Print button that calls window.print()
--->
-<div class="modal-overlay" id="modalReceipt" style="display:none;">
-  <div class="modal" style="max-width:460px;">
-    <div class="modal-header">
-      <div class="modal-title">🧾 Sale Receipt</div>
-      <button class="modal-close" onclick="document.getElementById('modalReceipt').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="receipt-box">
-        <div class="receipt-header">
-          <div class="receipt-pharmacy-name">💊 PharmaCare</div>
-          <div style="font-size:0.78rem; color:var(--text-muted);">Integrated Pharmacy System</div>
-          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">
-            Date: 21 May 2026 &nbsp;|&nbsp; Sale ID: S017
-          </div>
-        </div>
-        <div style="margin-bottom:10px; font-size:0.82rem; color:var(--text-secondary);">
-          <strong>Customer:</strong> Ama Asante &nbsp;|&nbsp; <strong>Cashier:</strong> Kofi Mensah
-        </div>
-        <div class="receipt-row">
-          <span>Amoxil × 3</span>
-          <span>GHS 16.50</span>
-        </div>
-        <div class="receipt-total">
-          <span>TOTAL</span>
-          <span>GHS 16.50</span>
-        </div>
-        <div style="margin-top:10px; font-size:0.78rem; color:var(--text-muted);">
-          Payment: MobileMoney &nbsp;|&nbsp; Thank you for your purchase!
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalReceipt').style.display='none'">Close</button>
-      <button class="btn btn-primary"
-        onclick="alert('JS Task: Call window.print() to print receipt')">
-        🖨️ Print Receipt
-      </button>
     </div>
   </div>
 </div>

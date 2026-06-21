@@ -7,13 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- ===== SIDEBAR ===== -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-icon">💊</div>
-    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
-  </div>
+  <div class="sidebar-logo"><div class="logo-icon">💊</div><div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div></div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
     <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
@@ -35,81 +30,21 @@
     <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
     <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
   </nav>
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar">KM</div>
-      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
-    </div>
-  </div>
+  <div class="sidebar-footer"><div class="user-info"><div class="user-avatar">KM</div><div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div></div></div>
 </aside>
-<!-- ===== END SIDEBAR ===== -->
 
 <div class="main-wrapper">
-
   <header class="top-header">
     <div class="page-title">Products <span>Inventory Management</span></div>
     <div class="header-actions">
-      <div class="header-date">📅 Thursday, 21 May 2026</div>
-      <!--
-        JS TASK: Open Add Product modal when clicked
-      -->
-      <button class="btn btn-primary" id="btnAddProduct" onclick="openAddModal()">
-        <!-- onclick="alert('JS Task: Open Add Product modal. See comment.')"> -->
-        ＋ Add Product
-      </button>
+      <button class="btn btn-primary" id="btnAddProduct" onclick="openAddModal()">＋ Add Product</button>
     </div>
   </header>
 
   <div class="page-content">
-
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <!--
-          JS TASK: On keyup, filter table rows by GenericName or BrandName
-        -->
-        <input type="text" id="searchProducts" placeholder="Search by generic name or brand…" onkeyup="filterProducts()" />
-      </div>
-      <!--
-        JS TASK: On change, filter table rows by selected CategoryName
-      -->
-      <select class="form-control" style="width:auto;" id="filterCategory" onchange="filterProducts()">
-        <option value="">All Categories</option>
-        <option>Antibiotic</option>
-        <option>Analgesic</option>
-        <option>Antimalaria</option>
-        <option>Vitamin</option>
-        <option>Antifungal</option>
-      </select>
-      <!--
-        JS TASK: On change, filter by stock status from inventory report
-      -->
-      <select class="form-control" style="width:auto;" id="filterStatus" onchange="filterProducts()">
-        <option value="">All Stock Status</option>
-        <option>In Stock</option>
-        <option>Low Stock</option>
-        <option>Out of Stock</option>
-      </select>
-    </div>
-
-    <!-- Products Table Card -->
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">💊 All Products</div>
-        <span class="text-muted" id="productCount">Showing 5 of 5 products</span>
-        <!--
-          JS TASK: Update "Showing X of Y" count after filtering
-        -->
-      </div>
+      <div class="card-header"><div class="card-title">💊 All Products</div></div>
       <div class="table-wrapper">
-        <!--
-          JS TASK: Replace dummy rows by fetching:
-            GET /products  (joined with inventory view for TotalStock + StockStatus)
-          Map each product to a row.
-          Bind Edit button → open Edit Product modal pre-filled with that product's data.
-          Bind Delete button → confirm dialog → DELETE /products/<id>
-        -->
         <table id="productsTable">
           <thead>
             <tr>
@@ -118,90 +53,16 @@
               <th>Generic Name</th>
               <th>Brand Name</th>
               <th>Selling Price</th>
-              <th>Reorder Level</th>
               <th>Total Stock</th>
-              <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="productsTableBody">
-             <tr>
-
-                <td class="td-id">P001</td>
-                <td><span class="badge badge-blue">Antibiotic</span></td>
-                <td class="td-bold">Amoxicillin</td>
-                <td>Amoxil</td>
-                <td>GHS 5.50</td>
-                <td>50</td>
-                <td>42</td>
-                <td><span class="badge badge-amber">Low Stock</span></td>
-                <td>
-                  <button class="btn btn-icon btn-sm" onclick="openEditModal(1)">✏️</button>
-                  <button class="btn btn-icon btn-sm" onclick="deleteProduct(1)">🗑️</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="td-id">P002</td>
-                <td><span class="badge badge-blue">Antifungal</span></td>
-                <td class="td-bold">Fluconazole</td>
-                <td>Diflucan</td>
-                <td>GHS 8.50</td>
-                <td>20</td>
-                <td>14</td>
-                <td><span class="badge badge-amber">Low Stock</span></td>
-                <td>
-                  <button class="btn btn-icon btn-sm" onclick="openEditModal(5)">✏️</button>
-                  <button class="btn btn-icon btn-sm" onclick="deleteProduct(5)">🗑️</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="td-id">P003</td>
-                <td><span class="badge badge-orange">Antimalaria</span></td>
-                <td class="td-bold">Artemether</td>
-                <td>Coartem</td>
-                <td>GHS 12.00</td>
-                <td>30</td>
-                <td>0</td>
-                <td><span class="badge badge-red">Out of Stock</span></td>
-                <td>
-                  <button class="btn btn-icon btn-sm" onclick="openEditModal(3)">✏️</button>
-                  <button class="btn btn-icon btn-sm" onclick="deleteProduct(3)">🗑️</button>
-                </td>
-              </tr>
-
-
-
-          </tbody>
+          <tbody id="productsTableBody"></tbody>
         </table>
       </div>
-      <!-- Pagination -->
-      <div class="pagination" id="productsPagination">
-        <button class="page-btn disabled">‹</button>
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">›</button>
-        <!--
-          JS TASK: Implement pagination — show 10 rows per page.
-                   Update active page button on click.
-        -->
-      </div>
     </div>
-
   </div>
-  <!-- End Page Content -->
-
 </div>
 
-<!-- ===== ADD / EDIT PRODUCT MODAL ===== -->
-<!--
-  JS TASK: Show this modal when "Add Product" button is clicked.
-           Pre-fill fields when "Edit" button is clicked.
-           On Save:
-             - Add:  POST /products  with form data as JSON
-             - Edit: PUT  /products/<id> with form data as JSON
-           On success: close modal, refresh table.
-           On error: show error message inside modal.
--->
 <div class="modal-overlay" id="modalProduct" style="display:none;">
   <div class="modal">
     <div class="modal-header">
@@ -209,51 +70,20 @@
       <button class="modal-close" onclick="document.getElementById('modalProduct').style.display='none'">✕</button>
     </div>
     <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Generic Name *</label>
-          <input class="form-control" type="text" id="fieldGenericName" placeholder="e.g. Amoxicillin" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Brand Name *</label>
-          <input class="form-control" type="text" id="fieldBrandName" placeholder="e.g. Amoxil" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Category *</label>
-          <select class="form-control" id="fieldCategory">
-            <option value="">— Select —</option>
-            <option>Antibiotic</option>
-            <option>Analgesic</option>
-            <option>Antimalaria</option>
-            <option>Vitamin</option>
-            <option>Antifungal</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Selling Price (GHS) *</label>
-          <input class="form-control" type="number" id="fieldSellingPrice" placeholder="0.00" step="0.01" />
-        </div>
-      </div>
       <div class="form-group">
-        <label class="form-label">Reorder Level *</label>
-        <input class="form-control" type="number" id="fieldReorderLevel" placeholder="e.g. 50" />
+        <label class="form-label">Generic Name *</label>
+        <input class="form-control" type="text" id="fieldGenericName" />
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalProduct').style.display='none'">Cancel</button>
-      <button class="btn btn-primary" id="btnSaveProduct" onclick="saveProduct()">
-        <!-- onclick="alert('JS Task: POST or PUT product data to Flask API.')"> -->
-        💾 Save Product
-      </button>
+      <button class="btn btn-outline" onclick="document.getElementById('modalProduct').style.display='none'">Cancel</button>
+      <button class="btn btn-primary" id="btnSaveProduct" onclick="saveProduct()">💾 Save Product</button>
     </div>
   </div>
 </div>
-<!-- ===== END MODAL ===== -->
-<script src="../js/utils.js"></script>
-<script src="../js/auth.js"></script>
-<script src="../js/pages/products.js"></script>
+
+<script src="./js/utils.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/pages/products.js"></script>
 </body>
 </html>

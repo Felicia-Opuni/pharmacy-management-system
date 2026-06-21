@@ -35,45 +35,16 @@
 <div class="main-wrapper">
   <header class="top-header">
     <div class="page-title">Health Records <span>Customer Consultations</span></div>
-    <div class="header-actions">
-      <div class="header-date">📅 Thursday, 21 May 2026</div>
-      <!--
-        JS TASK: Open Add Health Record modal.
-                 Fetch customers list for the CustomerID dropdown: GET /customers
-      -->
-      <button class="btn btn-primary"
-        onclick="document.getElementById('modalHealthRecord').style.display='flex'">
-        ＋ New Health Record
-      </button>
-    </div>
   </header>
   <div class="page-content">
-
-    <div class="toolbar">
-      <div class="search-box"><span class="search-icon">🔍</span>
-        <!-- JS TASK: Filter by customer name -->
-        <input type="text" placeholder="Search by customer name…" />
-      </div>
-      <!-- JS TASK: Filter by visit date range -->
-      <input type="date" class="form-control" style="width:auto;" placeholder="From date" />
-      <input type="date" class="form-control" style="width:auto;" placeholder="To date" />
-    </div>
-
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">🩺 Customer Health Records</div>
-      </div>
+      <div class="card-header"><div class="card-title">🩺 Customer Health Records</div></div>
       <div class="table-wrapper">
-        <!--
-          JS TASK: Populate from GET /health-records
-          Bind "View" button → show full record details in a modal
-        -->
         <table>
           <thead>
             <tr>
               <th>Record ID</th><th>Customer</th><th>Visit Date</th>
               <th>Diagnosis</th><th>Medication Prescribed</th>
-              <th>Next Visit</th><th>Attended By</th><th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -83,138 +54,10 @@
               <td>20 May 2026</td>
               <td>Upper Respiratory Infection</td>
               <td>Amoxil 500mg × 7 days</td>
-              <td>27 May 2026</td>
-              <td>Kofi Mensah</td>
-              <td>
-                <button class="btn btn-icon btn-sm"
-                  onclick="document.getElementById('modalViewRecord').style.display='flex'" title="View">👁️</button>
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Pre-fill and open Edit modal for R001')">✏️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">R002</td>
-              <td class="td-bold">Kweku Boateng</td>
-              <td>19 May 2026</td>
-              <td>Diabetes Follow-up</td>
-              <td>Metformin 500mg daily</td>
-              <td>19 Jun 2026</td>
-              <td>Abena Boateng</td>
-              <td>
-                <button class="btn btn-icon btn-sm"
-                  onclick="document.getElementById('modalViewRecord').style.display='flex'" title="View">👁️</button>
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Pre-fill and open Edit modal for R002')">✏️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">R003</td>
-              <td class="td-bold">Adjoa Mensah</td>
-              <td>18 May 2026</td>
-              <td>Antenatal Check</td>
-              <td>Folic Acid + Iron supplements</td>
-              <td>15 Jun 2026</td>
-              <td>Abena Boateng</td>
-              <td>
-                <button class="btn btn-icon btn-sm"
-                  onclick="document.getElementById('modalViewRecord').style.display='flex'" title="View">👁️</button>
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Pre-fill and open Edit modal for R003')">✏️</button>
-              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="pagination">
-        <button class="page-btn disabled">‹</button>
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">›</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ADD HEALTH RECORD MODAL -->
-<!--
-  JS TASK: On submit: POST /health-records
--->
-<div class="modal-overlay" id="modalHealthRecord" style="display:none;">
-  <div class="modal" style="max-width:600px;">
-    <div class="modal-header">
-      <div class="modal-title">🩺 New Health Record</div>
-      <button class="modal-close" onclick="document.getElementById('modalHealthRecord').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Customer *</label>
-          <!-- JS TASK: Populate from GET /customers -->
-          <select class="form-control">
-            <option>— Select customer —</option>
-            <option>C001 — Ama Asante</option>
-            <option>C002 — Kweku Boateng</option>
-            <option>C003 — Abena Owusu</option>
-            <option>C004 — Kofi Agyei</option>
-            <option>C005 — Adjoa Mensah</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Visit Date *</label>
-          <input class="form-control" type="date" value="2026-05-21" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Symptoms *</label>
-        <textarea class="form-control" rows="2" placeholder="Describe the patient's symptoms…"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Diagnosis *</label>
-        <input class="form-control" type="text" placeholder="e.g. Upper Respiratory Infection" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Medication Prescribed</label>
-        <input class="form-control" type="text" placeholder="e.g. Amoxil 500mg × 7 days" />
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Consultation Notes</label>
-          <textarea class="form-control" rows="2" placeholder="Additional notes…"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Next Visit Date</label>
-          <input class="form-control" type="date" />
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="document.getElementById('modalHealthRecord').style.display='none'">Cancel</button>
-      <button class="btn btn-primary" onclick="alert('JS Task: POST health record to /health-records')">💾 Save Record</button>
-    </div>
-  </div>
-</div>
-
-<!-- VIEW RECORD MODAL (Read-only detail) -->
-<div class="modal-overlay" id="modalViewRecord" style="display:none;">
-  <div class="modal" style="max-width:520px;">
-    <div class="modal-header">
-      <div class="modal-title">🩺 Health Record Detail — R001</div>
-      <button class="modal-close" onclick="document.getElementById('modalViewRecord').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; font-size:0.88rem;">
-        <div><div class="stat-label">Customer</div><div class="fw-600">Ama Asante</div></div>
-        <div><div class="stat-label">Visit Date</div><div>20 May 2026</div></div>
-        <div><div class="stat-label">Symptoms</div><div>Sore throat, cough, mild fever</div></div>
-        <div><div class="stat-label">Diagnosis</div><div class="fw-600">Upper Respiratory Infection</div></div>
-        <div><div class="stat-label">Medication Prescribed</div><div>Amoxil 500mg × 7 days</div></div>
-        <div><div class="stat-label">Next Visit</div><div>27 May 2026</div></div>
-        <div style="grid-column:1/-1;"><div class="stat-label">Consultation Notes</div><div>Patient advised to drink warm fluids and rest. Return if no improvement.</div></div>
-        <div><div class="stat-label">Attended By</div><div>Kofi Mensah (Pharmacist)</div></div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="document.getElementById('modalViewRecord').style.display='none'">Close</button>
     </div>
   </div>
 </div>

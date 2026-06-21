@@ -7,13 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- ===== SIDEBAR ===== -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-icon">💊</div>
-    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
-  </div>
+  <div class="sidebar-logo"><div class="logo-icon">💊</div><div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div></div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
     <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
@@ -35,108 +30,22 @@
     <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
     <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
   </nav>
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar">KD</div>
-      <div><div class="user-name">Yaw Darko</div><div class="user-role">Rider</div></div>
-    </div>
-  </div>
+  <div class="sidebar-footer"><div class="user-info"><div class="user-avatar">KD</div><div><div class="user-name">Yaw Darko</div><div class="user-role">Rider</div></div></div></div>
 </aside>
-<!-- ===== END SIDEBAR ===== -->
 
 <div class="main-wrapper">
-
   <header class="top-header">
     <div class="page-title">Deliveries <span>Delivery Tracking</span></div>
     <div class="header-actions">
       <div class="header-date">📅 Thursday, 21 May 2026</div>
-      <!--
-        JS TASK: Show this button only for Pharmacist / Cashier roles.
-                 Riders cannot create deliveries, they only update status.
-                 Open Add Delivery modal when clicked.
-      -->
-      <button class="btn btn-primary"
-        onclick="document.getElementById('modalAddDelivery').style.display='flex'">
-        ＋ Add Delivery
-      </button>
+      <button class="btn btn-primary" onclick="document.getElementById('modalAddDelivery').style.display='flex'">＋ Add Delivery</button>
     </div>
   </header>
 
   <div class="page-content">
-
-    <!-- Status Summary Cards -->
-    <!--
-      JS TASK: Replace dummy numbers by fetching GET /deliveries
-               and counting deliveries per status.
-    -->
-    <div class="stat-grid" style="margin-bottom: 24px;">
-      <div class="stat-card">
-        <div class="stat-icon amber">⏳</div>
-        <div>
-          <div class="stat-label">Pending</div>
-          <div class="stat-value">3</div>
-          <div class="stat-sub">Awaiting pickup</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon blue">🚀</div>
-        <div>
-          <div class="stat-label">Approved</div>
-          <div class="stat-value">2</div>
-          <div class="stat-sub">Out for delivery</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon green">✅</div>
-        <div>
-          <div class="stat-label">Delivered</div>
-          <div class="stat-value">14</div>
-          <div class="stat-sub">Completed today</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <!--
-          JS TASK: Filter table rows by customer name or delivery address
-        -->
-        <input type="text" placeholder="Search by customer or address…" />
-      </div>
-      <!--
-        JS TASK: Filter table rows by DeliveryStatus
-      -->
-      <select class="form-control" style="width:auto;" id="filterDeliveryStatus">
-        <option value="">All Statuses</option>
-        <option>Pending</option>
-        <option>Approved</option>
-        <option>Delivered</option>
-      </select>
-      <!--
-        JS TASK: Filter by delivery date
-      -->
-      <input type="date" class="form-control" style="width:auto;" value="2026-05-21" />
-    </div>
-
-    <!-- Deliveries Table -->
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">🏍️ All Deliveries</div>
-        <span class="text-muted">Showing 5 of 19 deliveries</span>
-      </div>
+      <div class="card-header"><div class="card-title">🏍️ All Deliveries</div></div>
       <div class="table-wrapper">
-        <!--
-          JS TASK: Replace dummy rows by fetching: GET /deliveries
-          For the Rider role:
-            - Only show deliveries assigned to the logged-in rider (filter by StaffID)
-            - Show "Update Status" button on each row
-            - Clicking it opens the Update Status modal for that DeliveryID
-          For Pharmacist / Cashier:
-            - Show all deliveries
-            - No Update Status button (read-only view)
-        -->
         <table id="deliveriesTable">
           <thead>
             <tr>
@@ -144,10 +53,7 @@
               <th>Sale ID</th>
               <th>Customer</th>
               <th>Delivery Address</th>
-              <th>Delivery Date</th>
-              <th>Rider</th>
               <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -156,194 +62,27 @@
               <td class="td-id">S012</td>
               <td class="td-bold">Ama Asante</td>
               <td>Cantonments, Accra</td>
-              <td>21 May 2026</td>
-              <td>Yaw Darko</td>
               <td><span class="badge badge-amber">Pending</span></td>
-              <td>
-                <button class="btn btn-primary btn-sm"
-                  onclick="document.getElementById('modalUpdateStatus').style.display='flex'">
-                  🔄 Update Status
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">D002</td>
-              <td class="td-id">S010</td>
-              <td class="td-bold">Kweku Boateng</td>
-              <td>Osu, Accra</td>
-              <td>21 May 2026</td>
-              <td>Kwame Asante</td>
-              <td><span class="badge badge-blue">Approved</span></td>
-              <td>
-                <button class="btn btn-primary btn-sm"
-                  onclick="document.getElementById('modalUpdateStatus').style.display='flex'">
-                  🔄 Update Status
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">D003</td>
-              <td class="td-id">S008</td>
-              <td class="td-bold">Abena Owusu</td>
-              <td>East Legon, Accra</td>
-              <td>21 May 2026</td>
-              <td>Yaw Darko</td>
-              <td><span class="badge badge-blue">Approved</span></td>
-              <td>
-                <button class="btn btn-primary btn-sm"
-                  onclick="document.getElementById('modalUpdateStatus').style.display='flex'">
-                  🔄 Update Status
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">D004</td>
-              <td class="td-id">S006</td>
-              <td class="td-bold">Kofi Agyei</td>
-              <td>Tema, Greater Accra</td>
-              <td>20 May 2026</td>
-              <td>Kwame Asante</td>
-              <td><span class="badge badge-green">Delivered</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View"
-                  onclick="alert('JS Task: Show read-only delivery detail for D004')">👁️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">D005</td>
-              <td class="td-id">S005</td>
-              <td class="td-bold">Adjoa Mensah</td>
-              <td>Kasoa, Central Region</td>
-              <td>20 May 2026</td>
-              <td>Yaw Darko</td>
-              <td><span class="badge badge-green">Delivered</span></td>
-              <td>
-                <button class="btn btn-icon btn-sm" title="View"
-                  onclick="alert('JS Task: Show read-only delivery detail for D005')">👁️</button>
-              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="pagination">
-        <button class="page-btn disabled">‹</button>
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">›</button>
-      </div>
     </div>
-
   </div>
-  <!-- End Page Content -->
-
 </div>
 
-<!-- ===== ADD DELIVERY MODAL ===== -->
-<!--
-  JS TASK:
-    Load sales list for the SaleID dropdown: GET /sales
-    On submit: POST /deliveries with:
-      { SaleID, StaffID (Rider), DeliveryDate, DeliveryAddress, DeliveryStatus: 'Pending' }
-    On success: close modal, refresh table and summary cards.
--->
 <div class="modal-overlay" id="modalAddDelivery" style="display:none;">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">🏍️ Add New Delivery</div>
-      <button class="modal-close"
-        onclick="document.getElementById('modalAddDelivery').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Linked Sale *</label>
-        <!--
-          JS TASK: Populate from GET /sales
-                   Show Sale ID + Customer name for easy selection
-        -->
-        <select class="form-control">
-          <option value="">— Select Sale —</option>
-          <option>S018 — Ama Asante (21 May 2026)</option>
-          <option>S017 — Kweku Boateng (21 May 2026)</option>
-          <option>S016 — Walk-in (21 May 2026)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Assign Rider *</label>
-        <!--
-          JS TASK: Populate from GET /staff?role=Rider
-        -->
-        <select class="form-control">
-          <option value="">— Select Rider —</option>
-          <option>ST003 — Kwame Asante</option>
-          <option>ST005 — Yaw Darko</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Delivery Date *</label>
-        <input class="form-control" type="date" value="2026-05-21" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Delivery Address *</label>
-        <input class="form-control" type="text"
-          placeholder="e.g. 14 Ring Road East, Accra" />
-      </div>
+      <button class="modal-close" onclick="document.getElementById('modalAddDelivery').style.display='none'">✕</button>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalAddDelivery').style.display='none'">Cancel</button>
-      <button class="btn btn-primary"
-        onclick="alert('JS Task: POST delivery data to /deliveries')">
-        💾 Save Delivery
-      </button>
+      <button class="btn btn-outline" onclick="document.getElementById('modalAddDelivery').style.display='none'">Cancel</button>
+      <button class="btn btn-primary">💾 Save Delivery</button>
     </div>
   </div>
 </div>
-
-<!-- ===== UPDATE STATUS MODAL ===== -->
-<!--
-  JS TASK:
-    Store the DeliveryID of the row being updated.
-    Only allow Riders to use this modal.
-    Status flow: Pending → Approved → Delivered
-    On submit: PUT /deliveries/<id>  with body { DeliveryStatus: "..." }
-    On success: close modal, refresh table and summary cards.
--->
-<div class="modal-overlay" id="modalUpdateStatus" style="display:none;">
-  <div class="modal" style="max-width: 420px;">
-    <div class="modal-header">
-      <div class="modal-title">🔄 Update Delivery Status</div>
-      <button class="modal-close"
-        onclick="document.getElementById('modalUpdateStatus').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="alert alert-blue" style="margin-bottom: 16px;">
-        <span class="alert-icon">ℹ️</span>
-        <div>
-          Updating status for Delivery <strong>D001</strong> —
-          Customer: <strong>Ama Asante</strong>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">New Status *</label>
-        <select class="form-control" id="fieldNewStatus">
-          <option value="">— Select new status —</option>
-          <option value="Pending">Pending</option>
-          <option value="Approved">Approved</option>
-          <option value="Delivered">Delivered</option>
-        </select>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalUpdateStatus').style.display='none'">Cancel</button>
-      <button class="btn btn-primary"
-        onclick="alert('JS Task: PUT /deliveries/<id> with new status')">
-        ✅ Update Status
-      </button>
-    </div>
-  </div>
-</div>
-<!-- ===== END MODALS ===== -->
 
 </body>
 </html>

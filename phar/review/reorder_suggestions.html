@@ -7,13 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- ===== SIDEBAR ===== -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-icon">💊</div>
-    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
-  </div>
+  <div class="sidebar-logo"><div class="logo-icon">💊</div><div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div></div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
     <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
@@ -35,189 +30,31 @@
     <a class="nav-item" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
     <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
   </nav>
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar">KM</div>
-      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
-    </div>
-  </div>
+  <div class="sidebar-footer"><div class="user-info"><div class="user-avatar">KM</div><div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div></div></div>
 </aside>
 
 <div class="main-wrapper">
-
   <header class="top-header">
     <div class="page-title">Reorder Suggestions <span>Stock Replenishment</span></div>
-    <div class="header-actions">
-      <div class="header-date">📅 Thursday, 21 May 2026</div>
-      <!--
-        JS TASK: Call GET /reorder/run to manually trigger sp_GenerateReorderSuggestions
-                 Then refresh the table.
-      -->
-      <button class="btn btn-outline btn-sm"
-        onclick="alert('JS Task: POST /reorder/run to manually generate suggestions')">
-        🔄 Run Check Now
-      </button>
-    </div>
   </header>
 
   <div class="page-content">
-
-    <div class="alert alert-blue">
-      <span class="alert-icon">ℹ️</span>
-      <div>
-        The system automatically generates reorder suggestions every day at <strong>7:00 AM</strong>
-        for products that are <strong>Low in Stock</strong>.
-        A pharmacist must <strong>Approve</strong> or <strong>Reject</strong> each suggestion.
-      </div>
-    </div>
-
-    <!-- Pending Suggestions -->
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">🔔 Pending Suggestions</div>
-        <span class="text-muted">2 awaiting action</span>
-        <!--
-          JS TASK: Fetch from GET /reorder/suggestions (status=Pending)
-                   Update count badge dynamically
-        -->
-      </div>
+      <div class="card-header"><div class="card-title">🔔 Pending Suggestions</div></div>
       <div class="table-wrapper">
-        <!--
-          JS TASK: Replace dummy rows by fetching: GET /reorder/suggestions
-          Bind Approve button → PUT /reorder/approve/<id> → refresh table
-          Bind Reject button → open Reject modal to capture reason
-                               → PUT /reorder/reject/<id> with reason → refresh table
-        -->
         <table>
           <thead>
             <tr>
               <th>Suggestion ID</th>
               <th>Product</th>
-              <th>Brand</th>
               <th>Reorder Level</th>
               <th>Current Stock</th>
               <th>Suggested Qty</th>
-              <th>Date Generated</th>
-              <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="td-id">SGS001</td>
-              <td class="td-bold">Amoxicillin</td>
-              <td>Amoxil</td>
-              <td>50</td>
-              <td><span class="text-red fw-600">42</span></td>
-              <td class="td-bold">50</td>
-              <td>21 May 2026</td>
-              <td><span class="badge badge-amber">Pending</span></td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-primary btn-sm"
-                  onclick="alert('JS Task: PUT /reorder/approve/1 then refresh table')">
-                  ✅ Approve
-                </button>
-                <button class="btn btn-danger btn-sm"
-                  onclick="document.getElementById('modalReject').style.display='flex'">
-                  ✕ Reject
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">SGS002</td>
-              <td class="td-bold">Fluconazole</td>
-              <td>Diflucan</td>
-              <td>20</td>
-              <td><span class="text-red fw-600">14</span></td>
-              <td class="td-bold">20</td>
-              <td>21 May 2026</td>
-              <td><span class="badge badge-amber">Pending</span></td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-primary btn-sm"
-                  onclick="alert('JS Task: PUT /reorder/approve/2 then refresh table')">
-                  ✅ Approve
-                </button>
-                <button class="btn btn-danger btn-sm"
-                  onclick="document.getElementById('modalReject').style.display='flex'">
-                  ✕ Reject
-                </button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
-    </div>
-
-    <!-- History: Rejected Suggestions -->
-    <div class="card mt-3">
-      <div class="card-header">
-        <div class="card-title">📋 Rejected Suggestions History</div>
-      </div>
-      <div class="table-wrapper">
-        <!--
-          JS TASK: Fetch from GET /reorder/suggestions?status=Rejected
-        -->
-        <table>
-          <thead>
-            <tr>
-              <th>Suggestion ID</th>
-              <th>Product</th>
-              <th>Suggested Qty</th>
-              <th>Rejection Reason</th>
-              <th>Rejected Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="td-id">SGS000</td>
-              <td class="td-bold">Artemether (Coartem)</td>
-              <td>30</td>
-              <td class="td-muted">Supplier unavailable, will order manually</td>
-              <td>18 May 2026</td>
-              <td><span class="badge badge-red">Rejected</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===== REJECT SUGGESTION MODAL ===== -->
-<!--
-  JS TASK:
-    Store the SuggestionID of the row being rejected.
-    On Submit: PUT /reorder/reject/<id>  with body { rejection_reason: "..." }
-    On success: close modal, refresh both tables.
--->
-<div class="modal-overlay" id="modalReject" style="display:none;">
-  <div class="modal" style="max-width:460px;">
-    <div class="modal-header">
-      <div class="modal-title">✕ Reject Suggestion</div>
-      <button class="modal-close"
-        onclick="document.getElementById('modalReject').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="alert alert-amber" style="margin-bottom:16px;">
-        <span class="alert-icon">⚠️</span>
-        <div>This will mark the suggestion as <strong>Rejected</strong>.
-        The product will not be added to a purchase order.</div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Rejection Reason *</label>
-        <textarea class="form-control" id="rejectReason" rows="3"
-          placeholder="e.g. Supplier unavailable, will order manually next week…"></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalReject').style.display='none'">Cancel</button>
-      <button class="btn btn-danger"
-        onclick="alert('JS Task: PUT /reorder/reject/<id> with reason from textarea')">
-        ✕ Confirm Rejection
-      </button>
     </div>
   </div>
 </div>

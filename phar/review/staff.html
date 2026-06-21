@@ -7,13 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- ===== SIDEBAR ===== -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-icon">💊</div>
-    <div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div>
-  </div>
+  <div class="sidebar-logo"><div class="logo-icon">💊</div><div><div class="logo-text">PharmaCare</div><div class="logo-sub">Management System</div></div></div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
     <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
@@ -35,295 +30,50 @@
     <a class="nav-item active" href="staff.html"><span class="nav-icon">👤</span> Staff</a>
     <a class="nav-item" href="reports.html"><span class="nav-icon">📊</span> Reports</a>
   </nav>
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar">KM</div>
-      <div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div>
-    </div>
-  </div>
+  <div class="sidebar-footer"><div class="user-info"><div class="user-avatar">KM</div><div><div class="user-name">Kofi Mensah</div><div class="user-role">Pharmacist</div></div></div></div>
 </aside>
-<!-- ===== END SIDEBAR ===== -->
 
 <div class="main-wrapper">
-
   <header class="top-header">
     <div class="page-title">Staff <span>Staff Management</span></div>
     <div class="header-actions">
-      <div class="header-date">📅 Thursday, 21 May 2026</div>
-      <!--
-        JS TASK: Open Add Staff modal when clicked.
-                 Only allow this button to show for roles that can add staff
-                 (e.g. hide for CEO who is read-only).
-      -->
-      <button class="btn btn-primary"
-        onclick="document.getElementById('modalStaff').style.display='flex'">
-        ＋ Add Staff
-      </button>
+      <button class="btn btn-primary" onclick="document.getElementById('modalStaff').style.display='flex'">＋ Add Staff</button>
     </div>
   </header>
 
   <div class="page-content">
-
-    <!-- Role summary cards -->
-    <!--
-      JS TASK: Replace dummy counts by fetching GET /staff
-               and counting how many staff belong to each role.
-    -->
-    <div class="stat-grid" style="margin-bottom: 24px;">
-      <div class="stat-card">
-        <div class="stat-icon green">🧑‍⚕️</div>
-        <div>
-          <div class="stat-label">Pharmacists</div>
-          <div class="stat-value">2</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon blue">💳</div>
-        <div>
-          <div class="stat-label">Cashiers</div>
-          <div class="stat-value">1</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon amber">🏍️</div>
-        <div>
-          <div class="stat-label">Riders</div>
-          <div class="stat-value">2</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon orange">🩺</div>
-        <div>
-          <div class="stat-label">Med. Counter Assistants</div>
-          <div class="stat-value">0</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <!--
-          JS TASK: Filter table rows by StaffFName, StaffSName, or StaffEmail
-        -->
-        <input type="text" id="searchStaff" placeholder="Search by name or email…" />
-      </div>
-      <!--
-        JS TASK: Filter table rows by selected StaffRole
-      -->
-      <select class="form-control" style="width:auto;" id="filterRole">
-        <option value="">All Roles</option>
-        <option>Pharmacist</option>
-        <option>Cashier</option>
-        <option>Medical Counter Assistant</option>
-        <option>Rider</option>
-        <option>CEO</option>
-      </select>
-    </div>
-
-    <!-- Staff Table -->
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">👤 All Staff Members</div>
-        <span class="text-muted">5 staff members</span>
-      </div>
+      <div class="card-header"><div class="card-title">👤 All Staff Members</div></div>
       <div class="table-wrapper">
-        <!--
-          JS TASK: Replace dummy rows by fetching: GET /staff
-          Bind Edit button → open Edit Staff modal pre-filled with that staff's data
-                             PUT /staff/<id>
-          Bind Delete button → confirm dialog → DELETE /staff/<id>
-          Note: A staff member should not be able to delete their own account.
-                Check logged-in StaffID against row StaffID before showing Delete button.
-        -->
         <table id="staffTable">
           <thead>
             <tr>
               <th>Staff ID</th>
               <th>Full Name</th>
               <th>Role</th>
-              <th>Phone Number</th>
+              <th>Phone</th>
               <th>Email</th>
-              <th>Address</th>
-              <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="td-id">ST001</td>
-              <td class="td-bold">Kofi Mensah</td>
-              <td><span class="badge badge-green">Pharmacist</span></td>
-              <td>0201000001</td>
-              <td class="td-muted">kofi@pharmacy.gh</td>
-              <td>Accra, Ghana</td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Open Edit modal for ST001')">✏️</button>
-                <button class="btn btn-icon btn-sm" title="Delete"
-                  onclick="alert('JS Task: Confirm then DELETE /staff/1')">🗑️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">ST002</td>
-              <td class="td-bold">Ama Owusu</td>
-              <td><span class="badge badge-blue">Cashier</span></td>
-              <td>0201000002</td>
-              <td class="td-muted">ama@pharmacy.gh</td>
-              <td>Kumasi, Ghana</td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Open Edit modal for ST002')">✏️</button>
-                <button class="btn btn-icon btn-sm" title="Delete"
-                  onclick="alert('JS Task: Confirm then DELETE /staff/2')">🗑️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">ST003</td>
-              <td class="td-bold">Kwame Asante</td>
-              <td><span class="badge badge-amber">Rider</span></td>
-              <td>0201000003</td>
-              <td class="td-muted">—</td>
-              <td>Takoradi, Ghana</td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Open Edit modal for ST003')">✏️</button>
-                <button class="btn btn-icon btn-sm" title="Delete"
-                  onclick="alert('JS Task: Confirm then DELETE /staff/3')">🗑️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">ST004</td>
-              <td class="td-bold">Abena Boateng</td>
-              <td><span class="badge badge-green">Pharmacist</span></td>
-              <td>0201000004</td>
-              <td class="td-muted">abena@pharmacy.gh</td>
-              <td>Accra, Ghana</td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Open Edit modal for ST004')">✏️</button>
-                <button class="btn btn-icon btn-sm" title="Delete"
-                  onclick="alert('JS Task: Confirm then DELETE /staff/4')">🗑️</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-id">ST005</td>
-              <td class="td-bold">Yaw Darko</td>
-              <td><span class="badge badge-amber">Rider</span></td>
-              <td>0201000005</td>
-              <td class="td-muted">—</td>
-              <td>Accra, Ghana</td>
-              <td style="display:flex; gap:6px;">
-                <button class="btn btn-icon btn-sm" title="Edit"
-                  onclick="alert('JS Task: Open Edit modal for ST005')">✏️</button>
-                <button class="btn btn-icon btn-sm" title="Delete"
-                  onclick="alert('JS Task: Confirm then DELETE /staff/5')">🗑️</button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
-
   </div>
-  <!-- End Page Content -->
-
 </div>
 
-<!-- ===== ADD / EDIT STAFF MODAL ===== -->
-<!--
-  JS TASK:
-    - Add:  POST /staff  with form data as JSON
-            Also POST /auth/register to create login credentials
-    - Edit: PUT  /staff/<id> with form data as JSON
-    On success: close modal, refresh table and role summary cards.
-    On error: show error message inside modal.
--->
 <div class="modal-overlay" id="modalStaff" style="display:none;">
-  <div class="modal" style="max-width: 580px;">
+  <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="modalStaffTitle">Add New Staff Member</div>
-      <button class="modal-close"
-        onclick="document.getElementById('modalStaff').style.display='none'">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">First Name *</label>
-          <input class="form-control" type="text" id="fieldStaffFName"
-            placeholder="e.g. Kofi" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Surname *</label>
-          <input class="form-control" type="text" id="fieldStaffSName"
-            placeholder="e.g. Mensah" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Role *</label>
-          <select class="form-control" id="fieldStaffRole">
-            <option value="">— Select Role —</option>
-            <option>Pharmacist</option>
-            <option>Cashier</option>
-            <option>Medical Counter Assistant</option>
-            <option>Rider</option>
-            <option>CEO</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Phone Number *</label>
-          <input class="form-control" type="tel" id="fieldStaffPhone"
-            placeholder="e.g. 0201000001" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Email (used for login)</label>
-          <input class="form-control" type="email" id="fieldStaffEmail"
-            placeholder="e.g. kofi@pharmacy.gh" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Address *</label>
-          <input class="form-control" type="text" id="fieldStaffAddress"
-            placeholder="e.g. Accra, Ghana" />
-        </div>
-      </div>
-
-      <hr class="divider" />
-
-      <!-- Password fields shown only when ADDING, hidden when EDITING -->
-      <!--
-        JS TASK: Show these two fields only when opening the modal to ADD a new staff.
-                 Hide them when opening the modal to EDIT an existing staff.
-      -->
-      <div id="passwordFields">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Set Password *</label>
-            <input class="form-control" type="password" id="fieldPassword"
-              placeholder="Enter login password" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Confirm Password *</label>
-            <input class="form-control" type="password" id="fieldConfirmPassword"
-              placeholder="Re-enter password" />
-          </div>
-        </div>
-      </div>
-
+      <button class="modal-close" onclick="document.getElementById('modalStaff').style.display='none'">✕</button>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline"
-        onclick="document.getElementById('modalStaff').style.display='none'">Cancel</button>
-      <button class="btn btn-primary" id="btnSaveStaff"
-        onclick="alert('JS Task: POST or PUT staff data to Flask API.')">
-        💾 Save Staff
-      </button>
+      <button class="btn btn-outline" onclick="document.getElementById('modalStaff').style.display='none'">Cancel</button>
+      <button class="btn btn-primary" id="btnSaveStaff">💾 Save Staff</button>
     </div>
   </div>
 </div>
-<!-- ===== END MODAL ===== -->
 
 </body>
 </html>
